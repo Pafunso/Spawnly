@@ -2,16 +2,7 @@
 
 <div align="center">
 
-<pre>
-██████████████████████████████████████████████████████
-██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██
-██▓▓  ███████  ███████  ███████  ███████  ▓▓▓▓▓▓▓▓██
-██▓▓  ██       ██   ██  ██   ██  ██   ██  ▓▓▓▓▓▓▓▓██
-██▓▓  ███████  ███████  ███████  ██   ██  ▓▓▓▓▓▓▓▓██
-██▓▓       ██  ██       ██   ██  ██   ██  ▓▓▓▓▓▓▓▓██
-██▓▓  ███████  ██       ██   ██  ███████  ▓▓▓▓▓▓▓▓██
-██████████████████████████████████████████████████████
-</pre>
+<img src="assets/logo.svg" alt="Spawnly" width="460">
 
 <img src="https://img.shields.io/badge/PROJETO_ACAD%C3%8AMICO-CRUD-4ca66a?style=for-the-badge&labelColor=152820" alt="Projeto acadêmico CRUD">
 
@@ -172,7 +163,6 @@ O <b>Spawnly</b> recomenda seeds de Minecraft que combinam com o seu estilo de j
 
 <pre>
 Hotbar:  [ 1 Entrar ][ 2 Questionário ][ 3 Recomendações ][ 4 Refinar ]
-              ▓▓▓▓          ▓▓▓▓             ▓▓▓▓            ▓▓▓▓
 </pre>
 
 <details>
@@ -524,11 +514,6 @@ npm i express mysql2 body-parser</code></pre>
 
 <img src="assets/vida-xp.svg" alt="Barra de vida e de experiência decorativas" width="700">
 
-<pre>
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-████████████████████████████████████████
-</pre>
 
 <img src="https://img.shields.io/badge/SPAWNLY-PROJETO_ACAD%C3%8AMICO_DE_CRUD-152820?style=for-the-badge&labelColor=4ca66a" alt="Spawnly, projeto acadêmico de CRUD"><br><br>
 
