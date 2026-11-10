@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerenciar seeds | Spawnly</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topo">
+<a class="marca" href="index.html">Spawnly</a>
+<nav aria-label="Principal"><a href="index.html">Início</a><a href="questionario.html">Questionário</a><a href="resultados.html">Recomendações</a><a href="gerenciar.html" aria-current="page">Gerenciar seeds</a></nav>
+</header>
+<main>
+<h1>Gerenciar seeds</h1>
+<form id="form-seed" class="bloco">
+<h2>Cadastrar ou editar seed</h2>
+<input type="hidden" id="seed-id" name="id">
+<div class="campos">
+<div><label for="codigo">Código da seed</label><input id="codigo" name="codigo" inputmode="numeric" pattern="-?[0-9]{1,19}" required></div>
+<div><label for="seed-nome">Nome</label><input id="seed-nome" name="nome" maxlength="120" required></div>
+<div><label for="edicao_versao_id">Edição e versão</label><select id="edicao_versao_id" name="edicao_versao_id" required>
+<option value="">Escolha</option>
+<option value="4">Java 1.21</option><option value="8">Bedrock 1.21</option><option value="2">Java 1.20-1.21</option><option value="3">Bedrock 1.21.x</option>
+</select></div>
+<div><label for="spawn_texto">Spawn</label><input id="spawn_texto" name="spawn_texto" maxlength="40" placeholder="0,0"></div>
+<div><label for="dificuldade">Dificuldade (1 a 5)</label><input id="dificuldade" name="dificuldade" type="number" min="1" max="5"></div>
+<div><label for="multiplayer">Multiplayer</label><select id="multiplayer" name="multiplayer"><option value="">Não informado</option><option value="baixo">Baixo</option><option value="medio">Médio</option><option value="alto">Alto</option></select></div>
+</div>
+<div class="campos"><div><label for="nota">Nota</label><textarea id="nota" name="nota" rows="3"></textarea></div></div>
+<button class="btn" type="submit">Salvar seed</button>
+<button class="btn sec" type="reset">Limpar</button>
+</form>
+<section aria-labelledby="t-catalogo">
+<h2 id="t-catalogo">Catálogo</h2>
+<div class="tabela">
+<table>
+<thead><tr><th scope="col">Código</th><th scope="col">Nome</th><th scope="col">Edição</th><th scope="col">Versão</th><th scope="col">Ações</th></tr></thead>
+<tbody id="corpo-seeds">
+<!-- Linha de exemplo: repetir uma por seed devolvida pela listagem -->
+<tr><td class="codigo">4167799982467607063</td><td>Vila de planície ao lado de cerejeiras</td><td>Ambas</td><td>1.21</td>
+<td><button class="btn sec" type="button" data-acao="editar" data-id="1">Editar</button> <button class="btn perigo" type="button" data-acao="excluir" data-id="1">Excluir</button></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<dialog id="confirmar-exclusao" aria-labelledby="titulo-exclusao">
+<form method="dialog">
+<h2 id="titulo-exclusao">Excluir seed?</h2>
+<p>A seed e seus biomas, estruturas e verificações serão removidos. Não dá para desfazer.</p>
+<button class="btn sec" value="cancelar">Cancelar</button>
+<button class="btn perigo" value="confirmar">Excluir seed</button>
+</form>
+</dialog>
+</main>
+<footer class="rodape">Spawnly, projeto acadêmico de CRUD, Centro Universitário do Distrito Federal (UDF)</footer>
+</body>
+</html>
