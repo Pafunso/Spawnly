@@ -177,7 +177,7 @@ Hotbar:  [ 1 Entrar ][ 2 Questionário ][ 3 Recomendações ][ 4 Refinar ]
 </tr>
 </table>
 
-<p>Os biomas reais ficam no banco de dados, na tabela <code>seeds</code>. Esta lista é só um exemplo.</p>
+<p>Os biomas reais ficam no banco de dados, na tabela <code>seeds</code>. Esta lista é só um exemplo!.</p>
 
 </details>
 
