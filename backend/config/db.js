@@ -4,11 +4,14 @@ const mysql = require('mysql2/promise');
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '', // A senha será configurada localmente, qualquer coisa perguntar para Caetano
+    password: '', // A senha será configurada localmente
+// Se o bigNumbersStrings acabar dando erro, trocar para supportBigNumbers
     database: 'Spawnly', 
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    supportBigNumbers: true,
+    bigNumbersStrings: true
 });
 
 // Serve para testar conexão no terminal!
