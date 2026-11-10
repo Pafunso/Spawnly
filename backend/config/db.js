@@ -5,7 +5,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '', // A senha será configurada localmente
-// Se o bigNumbersStrings acabar dando erro, trocar para supportBigNumbers
+// Se o bigNumbersStrings acabar dando erro, trocar para somente supportBigNumbers
     database: 'Spawnly', 
     waitForConnections: true,
     connectionLimit: 10,
