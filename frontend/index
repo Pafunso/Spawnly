@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encontre seu mundo perfeito | Spawnly</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topo">
+<a class="marca" href="index.html">Spawnly</a>
+<nav aria-label="Principal"><a href="index.html" aria-current="page">Início</a><a href="questionario.html">Questionário</a><a href="resultados.html">Recomendações</a><a href="gerenciar.html">Gerenciar seeds</a></nav>
+</header>
+<main>
+<section class="hero">
+<h1>Encontre seu mundo perfeito.</h1>
+<p>Responda a um questionário sobre edição, bioma, estilo de jogo e estruturas. O Spawnly mostra as seeds de Minecraft que mais combinam com você.</p>
+<a class="btn" href="questionario.html">Responder ao questionário</a>
+</section>
+<section class="bloco" aria-labelledby="t-entrar">
+<h2 id="t-entrar">Entrar ou cadastrar</h2>
+<form action="questionario.html">
+<div class="campos">
+<div><label for="nome">Nome de usuário</label><input id="nome" name="nome" maxlength="80" required></div>
+<div><label for="u-edicao">Edição do jogo</label><select id="u-edicao" name="edicao" required><option value="">Escolha</option><option>Java</option><option>Bedrock</option></select></div>
+<div><label for="u-versao">Versão</label><input id="u-versao" name="versao" maxlength="12" placeholder="1.21" required></div>
+</div>
+<button class="btn" type="submit">Entrar</button>
+</form>
+</section>
+<section aria-labelledby="t-jornada">
+<h2 id="t-jornada">Como funciona</h2>
+<ol class="passos">
+<li><h3>Entrar</h3><p>Informe seu nome, a edição e a versão do jogo.</p></li>
+<li><h3>Responder</h3><p>Escolha biomas, estruturas e estilo de jogo.</p></li>
+<li><h3>Ver seeds</h3><p>Receba cards com código, versão e compatibilidade.</p></li>
+<li><h3>Refinar</h3><p>Mude os filtros sem recomeçar.</p></li>
+</ol>
+</section>
+</main>
+<footer class="rodape">Spawnly, projeto acadêmico de CRUD, Centro Universitário do Distrito Federal (UDF)</footer>
+</body>
+</html>
