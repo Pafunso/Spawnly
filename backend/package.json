@@ -1,7 +1,7 @@
 {
   "name": "seedcraft-backend",
   "version": "1.0.0",
-  "description": "Backend para o projeto acadêmico Spawnle",
+  "description": "Backend para o projeto acadêmico Spawnly",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
