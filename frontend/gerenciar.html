@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciar seeds | Spawnly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js" defer></script><script src="js/gerenciar.js" defer></script>
+</head>
+<body>
+<header class="topo"><a class="marca" href="index.html">Spawnly</a><nav aria-label="Principal"><a href="index.html">Inicio</a><a href="questionario.html">Questionario</a><a href="resultados.html">Recomendacoes</a><a href="gerenciar.html" aria-current="page">Gerenciar seeds</a></nav></header>
+<main>
+  <p class="etiqueta">CATALOGO</p><h1>Gerenciar seeds</h1>
+  <form id="form-seed" class="bloco"><input type="hidden" id="seed-id">
+    <div class="cabecalho-form"><h2 id="titulo-form">Cadastrar seed</h2><button class="btn sec" id="cancelar-edicao" type="button" hidden>Cancelar edicao</button></div>
+    <div class="campos tres">
+      <div><label for="codigo">Codigo</label><input id="codigo" inputmode="numeric" pattern="-?[0-9]{1,19}" required></div>
+      <div><label for="seed-nome">Nome</label><input id="seed-nome" maxlength="120" required></div>
+      <div><label for="edicao-versao">Edicao e versao</label><select id="edicao-versao" required><option value="">Escolha</option></select></div>
+      <div><label for="spawn">Spawn</label><input id="spawn" maxlength="40" placeholder="0,0"></div>
+      <div><label for="dificuldade">Dificuldade</label><select id="dificuldade"><option value="">Nao informada</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+      <div><label for="multiplayer">Multiplayer</label><select id="multiplayer"><option value="">Nao informado</option><option value="baixo">Baixo</option><option value="medio">Medio</option><option value="alto">Alto</option></select></div>
+    </div>
+    <fieldset><legend>Biomas</legend><div id="seed-biomas" class="opcoes compactas"></div></fieldset>
+    <fieldset><legend>Estruturas</legend><div id="seed-estruturas" class="opcoes compactas"></div></fieldset>
+    <label for="nota">Nota</label><textarea id="nota" rows="3" maxlength="5000"></textarea>
+    <p id="mensagem-form" class="mensagem" role="alert"></p><button class="btn" type="submit">Salvar seed</button>
+  </form>
+  <section><div class="cabecalho-pagina"><div><p class="etiqueta">REGISTROS</p><h2>Catalogo atual</h2></div><label>Buscar <input id="busca" type="search" placeholder="Codigo ou nome"></label></div>
+    <div class="tabela"><table><thead><tr><th>Codigo</th><th>Nome</th><th>Edicao</th><th>Versao</th><th>Acoes</th></tr></thead><tbody id="corpo-seeds"></tbody></table></div>
+  </section>
+  <dialog id="confirmar-exclusao"><form method="dialog"><h2>Excluir seed?</h2><p>As relacoes desta seed tambem serao removidas.</p><div class="acoes"><button class="btn sec" value="cancelar">Cancelar</button><button class="btn perigo" value="confirmar">Excluir</button></div></form></dialog>
+</main>
+<footer class="rodape">Spawnly — projeto academico de CRUD</footer>
+</body>
+</html>

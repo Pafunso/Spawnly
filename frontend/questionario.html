@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Questionario | Spawnly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js" defer></script><script src="js/questionario.js" defer></script>
+</head>
+<body>
+<header class="topo"><a class="marca" href="index.html">Spawnly</a><nav aria-label="Principal"><a href="index.html">Inicio</a><a href="questionario.html" aria-current="page">Questionario</a><a href="resultados.html">Recomendacoes</a><a href="gerenciar.html">Gerenciar seeds</a></nav></header>
+<main class="estreito">
+  <p class="etiqueta">PASSO 2 DE 3</p><h1>Monte seu mundo ideal</h1>
+  <p id="jogador-atual" class="resumo"></p>
+  <form id="form-questionario" class="bloco">
+    <fieldset><legend>Edicao e versao</legend><div class="campos">
+      <div><label for="edicao">Edicao</label><select id="edicao" required><option>Java</option><option>Bedrock</option></select></div>
+      <div><label for="versao">Versao instalada</label><input id="versao" list="lista-versoes" maxlength="12" required><datalist id="lista-versoes"></datalist></div>
+    </div></fieldset>
+    <fieldset><legend>Biomas desejados <span>ate 60 pontos</span></legend><div id="opcoes-biomas" class="opcoes" aria-live="polite"></div><label class="peso">Importancia <select id="peso-bioma"><option value="1">Baixa</option><option value="2" selected>Media</option><option value="3">Alta</option></select></label></fieldset>
+    <fieldset><legend>Estruturas desejadas <span>ate 40 pontos</span></legend><div id="opcoes-estruturas" class="opcoes" aria-live="polite"></div><label class="peso">Importancia <select id="peso-estrutura"><option value="1">Baixa</option><option value="2" selected>Media</option><option value="3">Alta</option></select></label></fieldset>
+    <fieldset><legend>Estilo de jogo</legend><div id="opcoes-estilos" class="opcoes" aria-live="polite"></div><label class="peso">Importancia <select id="peso-estilo"><option value="1">Baixa</option><option value="2" selected>Media</option><option value="3">Alta</option></select></label></fieldset>
+    <p id="mensagem" class="mensagem" role="alert"></p>
+    <button class="btn" type="submit">Salvar e ver recomendacoes</button>
+  </form>
+</main>
+<footer class="rodape">Spawnly — projeto academico de CRUD</footer>
+</body>
+</html>

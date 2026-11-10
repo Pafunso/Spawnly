@@ -190,8 +190,8 @@ Hotbar:  [ 1 Entrar ][ 2 Questionário ][ 3 Recomendações ][ 4 Refinar ]
 <table>
 <tr>
 <td align="center" width="33%"><img src="https://img.shields.io/badge/FRONT--END-4ca66a?style=for-the-badge" alt="Front-end"><br><br>HTML5<br>CSS3 responsivo<br>JavaScript</td>
-<td align="center" width="33%"><img src="https://img.shields.io/badge/BACK--END-f5c969?style=for-the-badge" alt="Back-end"><br><br>Node.js<br>Express<br>mysql2 e body-parser</td>
-<td align="center" width="33%"><img src="https://img.shields.io/badge/DADOS-214032?style=for-the-badge" alt="Dados"><br><br>MySQL<br>MySQL Workbench<br>Script SQL/DDL</td>
+<td align="center" width="33%"><img src="https://img.shields.io/badge/BACK--END-f5c969?style=for-the-badge" alt="Back-end"><br><br>Node.js<br>Express<br>mysql2 e dotenv</td>
+<td align="center" width="33%"><img src="https://img.shields.io/badge/DADOS-214032?style=for-the-badge" alt="Dados"><br><br>MariaDB<br>Banco relacional<br>Script SQL/DDL</td>
 </tr>
 </table>
 
@@ -203,8 +203,8 @@ Hotbar:  [ 1 Entrar ][ 2 Questionário ][ 3 Recomendações ][ 4 Refinar ]
   ├───────┼───────┼───────┤       ┌─────────────┐
   │ Node  │Express│ MySQL │ ───►  │  SPAWNLY x1 │
   ├───────┼───────┼───────┤       └─────────────┘
-  │ mysql2│ body- │  DDL  │
-  │       │ parser│       │
+  │ mysql2│dotenv │  DDL  │
+  │       │       │       │
   └───────┴───────┴───────┘
 </pre>
 
@@ -218,30 +218,29 @@ Hotbar:  [ 1 Entrar ][ 2 Questionário ][ 3 Recomendações ][ 4 Refinar ]
  ┌──────────────────┐      ┌──────────────────┐      ┌──────────────────┐
  │    FRONT-END     │      │     BACK-END     │      │      DADOS       │
  │                  │ ───► │                  │ ───► │                  │
- │ HTML5 + CSS3 + JS│ ◄─── │ Node.js + Express│ ◄─── │ MySQL / Workbench│
+ │ HTML5 + CSS3 + JS│ ◄─── │ Node.js + Express│ ◄─── │     MariaDB      │
  └──────────────────┘      └──────────────────┘      └──────────────────┘
       Navegador                 API REST                  Banco de dados
 </pre>
 
 <details>
-<summary><b>Estrutura de pastas sugerida</b></summary>
+<summary><b>Estrutura de pastas implementada</b></summary>
 
 <pre>
-spawnly/
-├── package.json
-├── server.js
+Spawnly-Integracao/
 ├── README.md
 ├── assets/
 ├── database/
-│   └── schema.sql
-├── src/
-│   ├── db.js
-│   └── routes/
-│       ├── seeds.js
-│       ├── usuarios.js
-│       ├── preferencias.js
-│       └── recomendar.js
-└── public/
+│   ├── spawnly_mariadb.sql
+│   └── README.md
+├── backend/
+│   ├── config/db.js
+│   ├── routes/
+│   ├── services/
+│   ├── test/
+│   ├── package.json
+│   └── server.js
+└── frontend/
     ├── index.html
     ├── questionario.html
     ├── resultados.html
@@ -250,7 +249,7 @@ spawnly/
     └── js/
 </pre>
 
-<p>A estrutura acima é uma sugestão. Ajuste os nomes conforme o que for combinado pela equipe.</p>
+<p>O Express serve diretamente os arquivos de <code>frontend/</code> e os assets compartilhados.</p>
 
 </details>
 
@@ -268,24 +267,25 @@ spawnly/
 </tr>
 <tr>
 <td><code>usuarios</code></td>
-<td><code>id</code>, <code>nome</code>, <code>nickname</code>, <code>email</code> (opcional)</td>
+<td><code>id</code>, <code>nome</code>, <code>edicao</code>, <code>versao</code></td>
 <td>Cadastro e manutenção de usuários</td>
 </tr>
 <tr>
-<td><code>preferencias</code></td>
-<td><code>id</code>, <code>usuario_id</code>, <code>edicao</code>, <code>bioma</code>, <code>estilo</code>, <code>detalhes</code></td>
-<td>Preferências editáveis do questionário</td>
+<td><code>preferencias_usuarios</code></td>
+<td><code>id</code>, <code>usuario_id</code>, <code>dimensao</code>, <code>valor</code>, <code>peso</code></td>
+<td>Preferências normalizadas e editáveis do questionário</td>
 </tr>
 <tr>
 <td><code>seeds</code></td>
-<td><code>id</code>, <code>codigo</code>, <code>edicao</code>, <code>versao</code>, <code>bioma</code>, <code>estruturas</code>, <code>descricao</code></td>
+<td><code>id</code>, <code>codigo</code>, <code>edicao_versao_id</code>, <code>nome</code>, <code>spawn_texto</code>, <code>nota</code></td>
 <td>Catálogo de mundos recomendáveis</td>
 </tr>
 </table>
 
 <pre>
  ┌──────────────┐ 1      N ┌────────────────┐
- │   usuarios   │──────────│  preferencias  │
+ │   usuarios   │──────────│ preferencias_  │
+ │              │          │    usuarios    │
  └──────────────┘          └────────────────┘
 
  ┌──────────────┐
@@ -294,7 +294,7 @@ spawnly/
 </pre>
 
 <blockquote>
-<b>Atenção:</b> o código da seed deve ser armazenado como <b>texto</b> (<code>VARCHAR</code>), pois pode ter muitos dígitos. Registrar <b>edição</b> e <b>versão</b> evita recomendações enganosas, já que a mesma seed gera mundos diferentes entre versões.
+<b>Atenção:</b> o código da seed usa <code>BIGINT</code> no banco e é devolvido como texto pela API, evitando perda de precisão no JavaScript. Edição e faixa de versão são obrigatórias para impedir recomendações incompatíveis.
 </blockquote>
 
 <img src="assets/divider.svg" alt="" width="100%">
@@ -364,17 +364,16 @@ A rota <code>/api/recomendar</code> compara <b>edição</b>, <b>versão</b>, <b>
 <table>
 <tr>
 <td align="center"><img src="https://img.shields.io/badge/NODE.JS-4ca66a?style=flat-square" alt="Node.js"><br>versão LTS</td>
-<td align="center"><img src="https://img.shields.io/badge/MYSQL-f5c969?style=flat-square" alt="MySQL"><br>com Workbench</td>
+<td align="center"><img src="https://img.shields.io/badge/MARIADB-f5c969?style=flat-square" alt="MariaDB"><br>servidor local</td>
 <td align="center"><img src="https://img.shields.io/badge/NPM-214032?style=flat-square" alt="npm"><br>gerenciador de pacotes</td>
 </tr>
 </table>
 
-<h3>Passo 1: Clonar o repositório</h3>
+<h3>Passo 1: Entrar no back-end</h3>
 
 <sub>Conquista desbloqueada: <b>Primeiro Spawn</b></sub>
 
-<pre><code>git clone https://github.com/SEU-USUARIO/spawnly.git
-cd spawnly</code></pre>
+<pre><code>cd ~/Spawnly-Integracao/backend</code></pre>
 
 <h3>Passo 2: Instalar as dependências</h3>
 
@@ -382,39 +381,39 @@ cd spawnly</code></pre>
 
 <pre><code>npm install</code></pre>
 
-<p>Caso esteja criando o projeto do zero:</p>
-
-<pre><code>npm init -y
-npm i express mysql2 body-parser</code></pre>
-
 <h3>Passo 3: Criar o banco de dados</h3>
 
 <sub>Conquista desbloqueada: <b>Construindo a Base</b></sub>
 
 <ol>
-<li>Abra o <b>MySQL Workbench</b> e conecte ao seu servidor local.</li>
-<li>Abra o arquivo <code>database/schema.sql</code>.</li>
-<li>Execute o script completo. Ele cria o banco, as tabelas <code>usuarios</code>, <code>preferencias</code> e <code>seeds</code>, e as chaves primárias e estrangeiras.</li>
+<li>Copie <code>.env.example</code> para <code>.env</code> e escolha uma senha local com pelo menos 8 caracteres.</li>
+<li>Execute o instalador com autenticação administrativa por socket:</li>
 </ol>
+
+<pre><code>cp .env.example .env
+sudo DB_ADMIN_SOCKET=/run/mysqld/mysqld.sock node scripts/setup-database.js</code></pre>
+
+<p>O instalador aceita somente <code>spawnly_integracao</code>, não executa <code>DROP</code> e nunca consulta nem altera <code>seedcraft</code>. Se detectar um esquema parcial, ele para sem apagar dados.</p>
 
 <h3>Passo 4: Configurar a conexão</h3>
 
 <sub>Conquista desbloqueada: <b>Redstone Conectada</b></sub>
 
-<p>Ajuste os dados de conexão com o MySQL no módulo de acesso ao banco (por exemplo <code>src/db.js</code>):</p>
+<p>As credenciais ficam somente em <code>backend/.env</code>. A aplicação usa uma conta própria, sem privilégios administrativos:</p>
 
-<pre><code>const config = {
-  host: "localhost",
-  user: "seu_usuario",
-  password: "sua_senha",
-  database: "spawnly"
-};</code></pre>
+<pre><code>DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=spawnly_app
+DB_PASSWORD=escolha_uma_senha_local
+DB_NAME=spawnly_integracao
+PORT=3000</code></pre>
 
 <h3>Passo 5: Iniciar o servidor</h3>
 
 <sub>Conquista desbloqueada: <b>Servidor no Ar</b></sub>
 
-<pre><code>node server.js</code></pre>
+<pre><code>npm test
+npm start</code></pre>
 
 <h3>Passo 6: Abrir no navegador</h3>
 
@@ -435,13 +434,13 @@ npm i express mysql2 body-parser</code></pre>
 <th align="center" width="10%">Status</th>
 <th align="left">Item</th>
 </tr>
-<tr><td align="center">[ ]</td><td>Páginas de cadastro em HTML5 e estilização em CSS3</td></tr>
-<tr><td align="center">[ ]</td><td><code>package.json</code> e pacotes <code>express</code>, <code>mysql2</code> e <code>body-parser</code> instalados</td></tr>
-<tr><td align="center">[ ]</td><td>Servidor JavaScript conectado ao MySQL</td></tr>
-<tr><td align="center">[ ]</td><td>Inclusão, consulta, alteração e exclusão demonstradas ao vivo</td></tr>
-<tr><td align="center">[ ]</td><td>Script SQL/DDL executável via MySQL Workbench</td></tr>
-<tr><td align="center">[ ]</td><td><code>README.md</code> com passos de instalação, configuração e execução</td></tr>
-<tr><td align="center">[ ]</td><td>Questionário que apresenta e refina recomendações de seeds</td></tr>
+<tr><td align="center">[x]</td><td>Páginas de cadastro em HTML5 e estilização responsiva em CSS3</td></tr>
+<tr><td align="center">[x]</td><td><code>package.json</code> e dependências reproduzíveis pelo <code>package-lock.json</code></td></tr>
+<tr><td align="center">[x]</td><td>Servidor JavaScript conectado ao MariaDB por variáveis de ambiente</td></tr>
+<tr><td align="center">[x]</td><td>CRUD integrado de usuários, preferências e seeds</td></tr>
+<tr><td align="center">[x]</td><td>SQL oficial adaptado e validado no MariaDB</td></tr>
+<tr><td align="center">[x]</td><td><code>README.md</code> com passos de instalação, configuração e execução</td></tr>
+<tr><td align="center">[x]</td><td>Questionário com recomendações reais e refinamento de preferências</td></tr>
 </table>
 
 <blockquote>

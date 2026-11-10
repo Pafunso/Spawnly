@@ -1,27 +1,25 @@
+require('dotenv').config();
+
 const mysql = require('mysql2/promise');
 
-// Configuração do pool de conexões com o MySQL
+const obrigatorias = ['DB_USER', 'DB_PASSWORD'];
+const ausentes = obrigatorias.filter(nome => !process.env[nome]);
+if (ausentes.length > 0) {
+    throw new Error(`Variaveis de ambiente ausentes: ${ausentes.join(', ')}`);
+}
+
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '', // A senha será configurada localmente
-// Se o bigNumbersStrings acabar dando erro, trocar para somente supportBigNumbers
-    database: 'Spawnly', 
+    host: process.env.DB_HOST || '127.0.0.1',
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME || 'spawnly_integracao',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
     supportBigNumbers: true,
-    bigNumbersStrings: true
+    bigNumberStrings: true,
+    charset: 'utf8mb4'
 });
-
-// Serve para testar conexão no terminal!
-pool.getConnection()
-    .then(conn => {
-        console.log('Conexão com o MySQL estabelecida com sucesso.');
-        conn.release();
-    })
-    .catch(err => {
-        console.error('Erro ao conectar no banco de dados:', err.message);
-    });
 
 module.exports = pool;

@@ -1,31 +1,61 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const db = require('./config/db'); 
+const path = require('path');
 
-const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT || 3000);
 
-// Middlewares essenciais. Sem isso aqui, a gente não lê JSON nem os forms do front.
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+function criarApp(db) {
+    const app = express();
+    const frontend = path.join(__dirname, '..', 'frontend');
+    const assets = path.join(__dirname, '..', 'assets');
 
-// Arquivos estáticos. É aqui na pasta 'public' que o Vitor vai jogar o HTML/CSS dele.
-app.use(express.static('public'));
+    app.disable('x-powered-by');
+    app.use(express.json({ limit: '100kb' }));
+    app.use(express.urlencoded({ extended: false }));
 
-// Rota de teste só pra garantir que o servidor tá de pé.
-app.get('/api/status', (req, res) => {
-    res.json({ status: 'Servidor SeedCraft rodando liso.' });
-});
+    app.get('/api/status', async (req, res) => {
+        try {
+            await db.query('SELECT 1');
+            res.json({ status: 'ok', banco: 'conectado', aplicacao: 'Spawnly' });
+        } catch (erro) {
+            console.error('Falha no status do banco:', erro.code || erro.message);
+            res.status(503).json({ status: 'indisponivel', banco: 'desconectado' });
+        }
+    });
 
-/* 
-  -----------------------------------------------------------------------
-  Área do João Lima.
-  Onde ele vai plugar as rotas (GET, POST, PUT, DELETE) para o CRUD das 
-  seeds e preferências. A constante 'db' já tá no jeito ali em cima pra usar.
-  -----------------------------------------------------------------------
-*/
+    app.use('/api/usuarios', require('./routes/usuarios')(db));
+    app.use('/api/seeds', require('./routes/seeds')(db));
+    app.use('/api/preferencias', require('./routes/preferencias')(db));
+    app.use('/api/recomendar', require('./routes/recomendar')(db));
+    app.use('/api/catalogos', require('./routes/catalogos')(db));
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-    console.log(`Status: http://localhost:${PORT}/api/status`);
-});
+    app.use('/assets', express.static(assets));
+    app.use(express.static(frontend, { extensions: ['html'] }));
+    app.get('/', (req, res) => res.sendFile(path.join(frontend, 'index.html')));
+
+    app.use((req, res) => {
+        if (req.path.startsWith('/api/')) {
+            return res.status(404).json({ erro: 'Rota nao encontrada.' });
+        }
+        return res.status(404).sendFile(path.join(frontend, 'index.html'));
+    });
+
+    app.use((erro, req, res, next) => {
+        if (erro instanceof SyntaxError && erro.status === 400 && 'body' in erro) {
+            return res.status(400).json({ erro: 'JSON invalido.' });
+        }
+        console.error('Erro nao tratado:', erro.code || erro.message);
+        return res.status(500).json({ erro: 'Erro interno do servidor.' });
+    });
+
+    return app;
+}
+
+if (require.main === module) {
+    const db = require('./config/db');
+    const app = criarApp(db);
+    app.listen(PORT, '127.0.0.1', () => {
+        console.log(`Spawnly disponivel em http://localhost:${PORT}`);
+    });
+}
+
+module.exports = { criarApp };

@@ -1,14 +1,19 @@
 {
-  "name": "seedcraft-backend",
+  "name": "spawnly-backend",
   "version": "1.0.0",
-  "description": "Backend para o projeto acadêmico Spawnly",
+  "private": true,
+  "description": "Aplicacao academica Spawnly",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js",
+    "test:integration": "RUN_DB_TESTS=1 node --test test/integration.test.js",
+    "db:setup": "node scripts/setup-database.js"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "express": "^4.19.2",
-    "mysql2": "^3.9.7"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5"
   }
 }

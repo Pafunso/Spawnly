@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Recomendacoes personalizadas de seeds para Minecraft.">
+  <title>Encontre seu mundo perfeito | Spawnly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js" defer></script>
+  <script src="js/index.js" defer></script>
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="index.html">Spawnly</a>
+  <nav aria-label="Principal"><a href="index.html" aria-current="page">Inicio</a><a href="questionario.html">Questionario</a><a href="resultados.html">Recomendacoes</a><a href="gerenciar.html">Gerenciar seeds</a></nav>
+</header>
+<main>
+  <section class="hero">
+    <div><p class="sobretitulo">SEEDS REAIS, ESCOLHAS SUAS</p><h1>Encontre seu mundo perfeito.</h1>
+    <p>Escolha a edicao, a versao, os biomas e as estruturas. O Spawnly consulta o catalogo e calcula a compatibilidade de cada seed.</p>
+    <a class="btn" href="#jogador">Comecar agora</a></div>
+    <img src="/assets/logo.svg" alt="Logotipo Spawnly">
+  </section>
+
+  <p id="status-api" class="aviso" role="status">Verificando servidor...</p>
+
+  <section id="jogador" class="grade-dupla" aria-label="Escolher jogador">
+    <form id="form-existente" class="bloco">
+      <p class="etiqueta">JOGADOR EXISTENTE</p><h2>Continuar uma jornada</h2>
+      <label for="usuario-existente">Usuario</label>
+      <select id="usuario-existente" required><option value="">Carregando usuarios...</option></select>
+      <button class="btn" type="submit">Continuar</button>
+    </form>
+    <form id="form-novo" class="bloco">
+      <p class="etiqueta">NOVO JOGADOR</p><h2>Criar usuario</h2>
+      <label for="nome">Nome</label><input id="nome" maxlength="80" required>
+      <div class="campos">
+        <div><label for="edicao">Edicao</label><select id="edicao" required><option>Java</option><option>Bedrock</option></select></div>
+        <div><label for="versao">Versao</label><input id="versao" maxlength="12" value="1.21" pattern="[0-9]{1,2}\.[0-9]{1,3}(\.[0-9]{1,3})?" required></div>
+      </div>
+      <button class="btn" type="submit">Cadastrar e continuar</button>
+    </form>
+  </section>
+
+  <section aria-labelledby="como-funciona"><p class="etiqueta">ROTA DE EXPLORACAO</p><h2 id="como-funciona">Como funciona</h2>
+    <ol class="passos"><li><strong>01</strong><h3>Escolha</h3><p>Cadastre ou selecione seu jogador.</p></li><li><strong>02</strong><h3>Responda</h3><p>Defina biomas, estruturas e estilo.</p></li><li><strong>03</strong><h3>Explore</h3><p>Receba seeds ordenadas por pontuacao.</p></li></ol>
+  </section>
+</main>
+<footer class="rodape">Spawnly — projeto academico de CRUD</footer>
+</body>
+</html>
