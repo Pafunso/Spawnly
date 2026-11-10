@@ -5,7 +5,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '', // A senha será configurada localmente, qualquer coisa perguntar para Caetano
-    database: 'seedcraft', 
+    database: 'Spawnly', 
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
